@@ -26,8 +26,11 @@ persistence.addItem = (item) => {
     } else {
         walletItems[index] = item;
     }
-
+    console.log("before add:");
+    walletItems.forEach((item) => { item.secrets.forEach((secret) => { console.log(secret) }) });
     writeItems(walletItems, masterKey);
+    console.log("after add:");
+    walletItems.forEach((item) => { item.secrets.forEach((secret) => { console.log(secret) }) });
 };
 
 persistence.deleteItem = (item) => {

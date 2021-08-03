@@ -1,3 +1,4 @@
 const factory = require("./persistence-repository.readItems.factory.js");
-const readItems = factory({});
+const crypto = require("../../crypto/index.js");
+const readItems = factory({crypto});
 module.exports = readItems;
