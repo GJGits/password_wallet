@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# build view
+cd ./view && ng build --configuration production --base-href ''
+
+# package app
+cd .. && npx electron-packager . --overwrite

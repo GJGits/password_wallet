@@ -1,0 +1,12 @@
+$blue: rgb(0, 187, 255); 
+$red: rgb(255, 85, 55);
+$green: rgb(11, 213, 11);
+$yellow: rgb(255, 255, 63);
+
+$list_colors: ("blue": $blue, "red": $red, "green": $green, "yellow": $yellow);
+
+@each $name, $color in $list_colors {
+    .txt-#{$name} {
+        color: $color;
+    }
+}

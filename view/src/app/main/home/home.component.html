@@ -1,0 +1,12 @@
+<div id="card-container">
+    <div class="card-item" *ngFor="let walletItem of (walletItems$ | async); index as i">
+        <app-credential-card (onConfirmDelete)="deleteItem($event)" *ngIf="isElementInCurrentPage(i)" [walletItem]="walletItem">
+        </app-credential-card>
+    </div>
+
+</div>
+
+<div id="button-bar">
+    <app-paginator (pageChanged)="pageChanged($event)" id="paginator" [size]="(walletItems$ | async)?.length"></app-paginator>
+    <button id="plus" routerLink="/itemEditor/-1">+</button>
+</div>

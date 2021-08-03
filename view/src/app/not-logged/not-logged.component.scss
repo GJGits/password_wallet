@@ -1,0 +1,31 @@
+.container {
+    
+    display: grid;
+    grid-template-columns: repeat(12,1fr);
+    grid-template-rows: repeat(12, 1fr);
+    justify-items: center;
+
+    #block-logo-item{
+        grid-row: 2 / 4;
+        grid-column: 5 / 9;
+    }
+
+    #unblock-password-item {
+        grid-row: 5 / 6;
+        grid-column: 5 / 9;
+    }
+
+    #passwordError {
+        grid-row: 6;
+        grid-column: 5 / 9;
+    }
+
+    #icons-copyright {
+        grid-column: 5 / 9;
+        grid-row: 12;
+        font-size: 12px;
+        a {
+            text-decoration: none;
+        }
+    }
+}

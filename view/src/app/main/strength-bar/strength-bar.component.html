@@ -1,0 +1,5 @@
+<div class="strength-bar">
+    <div class="strength">
+        <div *ngFor="let cl of classes;" [ngClass]="{'strength_item': cl.strength_item, 'strength_item_red': cl.strength_item_red, 'strength_item_yellow':cl.strength_item_yellow, 'strength_item_green':cl.strength_item_green, 'strength_item_blue': cl.strength_item_blue}"></div>
+    </div>
+</div>

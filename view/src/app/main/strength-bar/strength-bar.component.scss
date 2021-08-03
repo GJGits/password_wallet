@@ -1,0 +1,19 @@
+@use '../../../colors';
+
+.strength {
+    display: flex;
+}
+
+.strength_item {
+    width:  10px;
+    height: 10px;
+    border: 1px solid black;
+}
+
+$back-colors: ("red": colors.$red, "yellow": colors.$yellow, "green": colors.$green, "blue": colors.$blue);
+
+@each $name, $back-color in $back-colors {
+    .strength_item_#{$name} {
+        background-color: $back-color;
+    }
+}

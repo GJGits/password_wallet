@@ -1,0 +1,57 @@
+<form [formGroup]="itemForm">
+    <h3>Infos</h3>
+    <div id="item-info">
+        <label for="serviceName">Service name:</label>
+        <input type="text" id="serviceName" formControlName="serviceName">
+        <label for="description">Description:</label>
+        <textarea name="" id="description" cols="60" rows="5"
+            formControlName="description">{{itemForm.controls['description'].value}}</textarea>
+    </div>
+    <hr>
+
+    <div formArrayName="credentials">
+        <h3>Credentials</h3>
+        <div *ngFor="let credential of credentials.controls">
+            <input type="text" [value]="credential.get('name')?.value">
+            <span>:</span>
+            <input type="text" [value]="credential.get('value')?.value">
+        </div>
+        <div [formGroup]="newCredentialGroup">
+            <input type="text" placeholder="Credential name" formControlName="name">
+            <span>:</span>
+            <input type="text" placeholder="Credential value" formControlName="value">
+            <button (click)="addCredential()">add</button>
+        </div>
+    </div>
+    <hr>
+
+    <div formArrayName="secrets">
+        <h3>Secrets</h3>
+        <div class="secret-item" *ngFor="let secret of secrets.controls">
+            <input type="text" [value]="secret.get('name')?.value">
+            <span>:</span>
+            <input type="text" [value]="secret.get('value')?.value">
+        </div>
+        <div [formGroup]="newSecretGroup">
+            <input type="text" placeholder="Secret name" formControlName="name">
+            <span>:</span>
+            <input type="text" placeholder="Secret value" formControlName="value">
+            <button (click)="addSecret()">add</button>
+        </div>
+    </div>
+
+    <button (click)="suggestOne()">Suggest one</button>
+    
+    <div class="secret-suggestion">
+        <label for="pass-opt">password</label>
+        <input type="radio" id="pass-opt" name="secret-type-select" (change)="suggestPassword()" checked>
+        <label for="pin-opt">pin</label>
+        <input type="radio" id="pin-opt" name="secret-type-select" (change)="suggestPin()">
+        <input type="number" name="" id="" min="1" max="8" [formControl]="pinLength">
+        {{suggested_secret}}
+    </div>
+    
+    <hr>
+    <button (click)="updateWallet()" [disabled]="!itemForm.dirty">Save</button>
+    <button routerLink="/home" [disabled]="itemForm.dirty">Exit</button>
+</form>
