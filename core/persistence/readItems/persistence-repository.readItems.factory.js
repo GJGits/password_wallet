@@ -13,6 +13,5 @@ module.exports = dependecies => (masterKey) => {
         });
 
     });
-    console.log("decrypted items:", data);
     return data;
 }
