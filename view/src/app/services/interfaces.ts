@@ -6,7 +6,7 @@ export interface Credential_ {
 export interface Secret {
     name: string;
     value: string;
-    lastUpdate: string;
+    lastUpdate: number;
 }
 
 export interface WalletItem {

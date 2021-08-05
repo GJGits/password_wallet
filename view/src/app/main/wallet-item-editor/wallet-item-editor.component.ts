@@ -121,10 +121,10 @@ export class WalletItemEditorComponent implements OnInit {
       if (index != -1) {
         if (this.walletItem.secrets[index].value !== secretGroup.get('value')?.value) {
           this.walletItem.secrets[index].value = secretGroup.get('value')?.value
-          this.walletItem.secrets[index].lastUpdate = "" + new Date().getTime();
+          this.walletItem.secrets[index].lastUpdate = new Date().getTime();
         }
       } else {
-        this.walletItem.secrets.push({ name: secretGroup.get('name')?.value, value: secretGroup.get('value')?.value, lastUpdate: "" + new Date().getTime() });
+        this.walletItem.secrets.push({ name: secretGroup.get('name')?.value, value: secretGroup.get('value')?.value, lastUpdate: new Date().getTime() });
       }
     }
     this.apiService.addItem(this.walletItem);

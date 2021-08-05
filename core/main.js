@@ -29,8 +29,8 @@ var menu = Menu.buildFromTemplate([
                             dialog.showMessageBoxSync(null, options);
                         }
                         else {
-                            app.quit();
-                            app.relaunch()
+                            app.relaunch();
+                            app.exit();
                         }
 
                     }

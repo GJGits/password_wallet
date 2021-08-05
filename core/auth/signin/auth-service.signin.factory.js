@@ -4,10 +4,11 @@ module.exports = dependencies => (event, data) => {
     const crypto = dependencies.crypto;
 
     let masterKey = persistence.loadMasterKey();
-    let hash = crypto.hash(masterKey.salt, data);
+    let readKey = masterKey.readKey;
+    let hash = crypto.hash(readKey.salt, data);
 
-    if (hash.content === masterKey.key) {
-        persistence.setVolatileClearPassword(data);
+    if (hash.content === readKey.key) {
+        persistence.setReadPlainTextPassword(data);
         return { status: 200 }; // request ok
     }
     

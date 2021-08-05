@@ -9,7 +9,7 @@ var walletItems = [];
 
 persistence.getItems = () => {
     if (!walletItems.length) {
-        walletItems = readItems(masterKey);
+        walletItems = readItems(masterKey.readKey);
     }
     return walletItems;
 };
@@ -26,32 +26,36 @@ persistence.addItem = (item) => {
     } else {
         walletItems[index] = item;
     }
-    writeItems(walletItems, masterKey);
+    writeItems(walletItems, masterKey.writeKey);
 };
 
 persistence.deleteItem = (item) => {
     walletItems = walletItems.filter((el) => el.id !== item.id);
-    writeItems(walletItems, masterKey);
+    writeItems(walletItems, masterKey.writeKey);
 }
 
 persistence.loadMasterKey = () => {
     if (!masterKey) {
         masterKey = readMasterKey();
+        if (masterKey.readKey.lastUpdate !== masterKey.writeKey.lastUpdate) {
+            masterKey.readKey = masterKey.writeKey;
+        }
     }
     return masterKey;
 }
 
 persistence.storeMasterKey = (key) => {
-    // store new master key in RAM only for the first access. This
-    // is crucial to be able to renew the master key without losing
-    // the stored secrets.
-    if (!masterKey)
-        masterKey = key;
     writeMasterKey(key);
 }
 
-persistence.setVolatileClearPassword = (clearPassword) => {
-    masterKey.key = clearPassword;
+persistence.setReadPlainTextPassword = (plainTextPassword) => {
+    masterKey.readKey.key = plainTextPassword;
+    persistence.storeMasterKey(masterKey);
+}
+
+persistence.setWriteKey = (writeKey) => {
+    masterKey.writeKey= writeKey;
+    persistence.storeMasterKey(masterKey);
 }
 
 module.exports = persistence;

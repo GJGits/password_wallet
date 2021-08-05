@@ -5,11 +5,12 @@ module.exports = dependencies => async (event, data) => {
     const { persistence } = dependencies;
 
     let masterKey = persistence.loadMasterKey();
+    let readKey = masterKey.readKey;
 
-    if (!masterKey.key)
+    if (!readKey.key)
         return { status: 400 }; // not setted
 
-    let lastUpdate = new Date(masterKey.lastUpdate);
+    let lastUpdate = new Date(readKey.lastUpdate);
     let today = new Date();
     let diffTimeInMilliseconds = Math.abs(today - lastUpdate);
     let durationOfDayInMilliseconds = 1000 * 60 * 60 * 24;

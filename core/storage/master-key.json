@@ -1,5 +1,12 @@
 {
-    "key": "",
-    "salt": 0,
-    "lastUpdate": 0
+    "readKey": {
+        "key": "",
+        "salt": 0,
+        "lastUpdate": 0
+    },
+    "writeKey": {
+        "key": "",
+        "salt": 0,
+        "lastUpdate": 0
+    }
 }
