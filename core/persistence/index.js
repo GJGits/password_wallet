@@ -42,7 +42,11 @@ persistence.loadMasterKey = () => {
 }
 
 persistence.storeMasterKey = (key) => {
-    masterKey = key;
+    // store new master key in RAM only for the first access. This
+    // is crucial to be able to renew the master key without losing
+    // the stored secrets.
+    if (!masterKey)
+        masterKey = key;
     writeMasterKey(key);
 }
 

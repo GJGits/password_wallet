@@ -1,0 +1,26 @@
+<div class="container">
+    <div id="block-logo-item">
+        <img src="https://img.icons8.com/fluent/96/000000/lock-2.png" />
+    </div>
+    <p id="infoMessage" *ngIf="infoMessage">{{infoMessage}}</p>
+    <form id="unblock-password-item" name="newCredentialsForm" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+        <input type="password" name="oldPassword" id="oldPassword" class="form-control" placeholder="Enter old password" required [(ngModel)]="newCredentials.oldPassword" #oldPassword="ngModel">
+        <input type="password" class="form-control" id="password" name="signUpPassword" placeholder="Enter new master password"
+            required [(ngModel)]="newCredentials.password" #password="ngModel"
+            (keyup)="updatePasswordStrength()">
+        <input type="password" class="form-control" id="rip-password" name="signUpRepeatPassword"
+            placeholder="Repeat new master password" required [(ngModel)]="newCredentials.password_confirm"
+            #repeatPasswod="ngModel" [pattern]="newCredentials.password">
+        <div *ngIf="repeatPasswod.touched && repeatPasswod.invalid" id="repeat-error">
+            Passwords don't match
+        </div>
+        <button type="submit">Update master password</button>
+        <div id="password_rate">
+            <p>Password rate: {{passwordRate}} / 10</p>
+        </div>
+        <div id="server-error" *ngIf="serverError">
+            <b>{{serverError}}</b>
+        </div>
+    </form>
+    <p id="icons-copyright">All icons provided by <a href="https://icons8.it/" id="icons-link">Icons8</a></p>
+</div>

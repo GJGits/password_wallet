@@ -8,12 +8,14 @@ import { IpcRendererService } from './services/ipc-renderer-service';
 import { ipcFactory } from './services/services.module';
 import { NotLoggedComponent } from './not-logged/not-logged.component';
 import { NewUserComponent } from './new-user/new-user.component';
+import { RenewComponent } from './renew/renew.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotLoggedComponent,
-    NewUserComponent
+    NewUserComponent,
+    RenewComponent
   ],
   imports: [
     BrowserModule,

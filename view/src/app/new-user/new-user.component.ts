@@ -19,11 +19,6 @@ export class NewUserComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router, private activeRoute: ActivatedRoute, private passwordStrengthCalculator: PasswordStrengthCalculatorService) { }
 
   ngOnInit(): void {
-    this.activeRoute.params.subscribe(params => {
-      if (params['outdated']) {
-        this.infoMessage = "Your master password is outdated, you need to update it now in order to procede";
-      }
-    });
   }
 
   updatePasswordStrength() {

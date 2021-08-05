@@ -1,0 +1,51 @@
+@use '../../_colors';
+
+.container {
+    
+    display: grid;
+    grid-template-columns: repeat(12,1fr);
+    grid-template-rows: repeat(12, 1fr);
+
+    #block-logo-item{
+        justify-self: center;
+        grid-row: 3 / 5;
+        grid-column: 5 / 9;
+    }
+
+    #infoMessage {
+        margin: 0;
+        grid-column: 3 / 11;
+        grid-row: 5;
+    }
+
+    #unblock-password-item {
+        grid-row: 6 / 10;
+        grid-column: 5 / 9;
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-template-rows: repeat(4, 1fr);
+        row-gap: 10px;
+        input, button, #password_rate, #server-error, #repeat-error {
+            grid-column: 1 / 5;
+        }
+        button {
+            background-color: colors.$blue;
+        }
+        #repeat-error {
+            color: colors.$red;
+        }
+        #server-error {
+            color: colors.$red;
+        }
+    }
+
+    #icons-copyright {
+        justify-self: center;
+        grid-column: 5 / 9;
+        grid-row: 12;
+        font-size: 12px;
+        a {
+            text-decoration: none;
+        }
+    }
+}

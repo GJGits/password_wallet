@@ -119,13 +119,11 @@ export class IpcMockService implements IpcRendererService {
     if (channel == 'signin') {
       if (data === 'foo')
         return of({ status: 200 }); // request ok
-      if (data === 'bar')
-        return of({ status: 205 }); // request ok but password outdated
       if (data === 'paz')
         return of({ status: 500, errorMessage: 'Wrong credentials' }); // wrong credentials
     }
     if (channel == 'accountExistsAndIsValid') {
-      return of(false);
+      return of({status: 205}); // outdated
     }
     if (channel == 'wallet_items') {
       return of(this.walletItems);
@@ -136,7 +134,7 @@ export class IpcMockService implements IpcRendererService {
     if (channel == 'wallet_items_by_id') {
       return of(this.walletItems.find(el => el.id === data));
     }
-    if (channel == 'new_credentials') {
+    if (channel == 'setNewCredentials') {
       return of({ status: 200 });
       // return of({status: 500, errorMessage: 'Permission denied: check logs for more information'});
     }
