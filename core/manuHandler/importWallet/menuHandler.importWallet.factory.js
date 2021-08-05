@@ -9,9 +9,8 @@ module.exports = dependencies => (filePath) => {
     if (settings_rgx.test(data)) {
 
         let wallet = JSON.parse(data);
-
         fs.writeFileSync(__dirname + '/../../storage/wallet.json', JSON.stringify(wallet.wallet));
-        fs.writeFileSync(__dirname + '/../../storage/master-key.json', JSON.stringify(wallet.wallet));
+        fs.writeFileSync(__dirname + '/../../storage/master-key.json', JSON.stringify(wallet.masterKey));
         return true;
     }
 

@@ -4,7 +4,7 @@ const exportWallet = require("./exportWallet/index.js");
 var menuHandler = {};
 
 menuHandler.importWallet = (filePath) => {
-    importWallet(filePath);
+    return importWallet(filePath);
 }
 
 menuHandler.exportWallet = (filePath) => {
