@@ -8,7 +8,7 @@ module.exports = dependencies => (event, data) => {
     let hash = crypto.hash(readKey.salt, data);
 
     if (hash.content === readKey.key) {
-        persistence.setReadPlainTextPassword(data);
+        persistence.setPlainTextPassword(data);
         return { status: 200 }; // request ok
     }
     

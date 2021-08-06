@@ -26,11 +26,13 @@ persistence.addItem = (item) => {
     } else {
         walletItems[index] = item;
     }
-    writeItems(walletItems, masterKey.writeKey);
 };
 
 persistence.deleteItem = (item) => {
     walletItems = walletItems.filter((el) => el.id !== item.id);
+}
+
+persistence.storeItems = () => {
     writeItems(walletItems, masterKey.writeKey);
 }
 
@@ -38,24 +40,20 @@ persistence.loadMasterKey = () => {
     if (!masterKey) {
         masterKey = readMasterKey();
         if (masterKey.readKey.lastUpdate !== masterKey.writeKey.lastUpdate) {
-            masterKey.readKey = masterKey.writeKey;
+            masterKey.readKey = JSON.parse(JSON.stringify(masterKey.writeKey));
         }
     }
     return masterKey;
 }
 
-persistence.storeMasterKey = (key) => {
-    writeMasterKey(key);
-}
-
-persistence.setReadPlainTextPassword = (plainTextPassword) => {
+persistence.setPlainTextPassword = (plainTextPassword) => {
     masterKey.readKey.key = plainTextPassword;
-    persistence.storeMasterKey(masterKey);
+    masterKey.writeKey.key = plainTextPassword;
 }
 
 persistence.setWriteKey = (writeKey) => {
-    masterKey.writeKey= writeKey;
-    persistence.storeMasterKey(masterKey);
+    masterKey.writeKey = JSON.parse(JSON.stringify(writeKey));
+    writeMasterKey(masterKey);
 }
 
 module.exports = persistence;

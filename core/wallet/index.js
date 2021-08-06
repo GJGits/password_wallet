@@ -3,6 +3,7 @@ const deleteWalletItem = require("./deleteWalletItem/index.js");
 const getWalletItems = require("./getWalletItems/index.js");
 const getWalletItemById = require("./getWalletItemById/index.js");
 const addWalletItem = require("./addWalletItem/index.js");
+const persistence = require("../persistence/index.js");
 
 const handlerMap = new Map([
     ["wallet_items", getWalletItems],
@@ -23,6 +24,10 @@ wallet.stopHandle = function() {
     for (let [key, func] of handlerMap) {
         ipcMain.removeHandler(key);
     }
+}
+
+wallet.persist = () => {
+    persistence.storeItems();
 }
 
 module.exports = wallet;

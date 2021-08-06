@@ -16,7 +16,7 @@ module.exports = dependencies => async (event, data) => {
     let durationOfDayInMilliseconds = 1000 * 60 * 60 * 24;
     let diffDays = Math.ceil(diffTimeInMilliseconds / durationOfDayInMilliseconds);
 
-    if (diffDays > 0)
+    if (diffDays > 60)
         return { status: 205 }; // outdated
 
     return { status: 200 }; // ok

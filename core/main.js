@@ -80,7 +80,15 @@ app.whenReady().then(() => {
     // register handlers
     auth.handle();
     wallet.handle();
+
     // finally create window
     createWindow();
 
-})
+});
+
+app.on('before-quit', () => {
+    auth.stopHandle();
+    wallet.stopHandle();
+    wallet.persist();
+    // TODO: issue clear RAM
+});
