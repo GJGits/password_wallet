@@ -69,6 +69,10 @@ export class WalletItemEditorComponent implements OnInit {
     return this.itemForm.get('secrets') as FormArray;
   }
 
+  makeFormDirty() {
+    this.itemForm.markAsDirty();
+  }
+
   addCredential() {
     if (this.newCredentialGroup.get('name')?.value && this.newCredentialGroup.get('value')?.value) {
       this.credentials.push(this.fb.group({
@@ -113,6 +117,7 @@ export class WalletItemEditorComponent implements OnInit {
     this.walletItem.description = this.itemForm.get('description')?.value;
     this.walletItem.credentials = [];
     for (let credentialGroup of this.credentials.controls) {
+      console.log("new credential: ", credentialGroup.get('value')?.value);
       this.walletItem.credentials.push({ name: credentialGroup.get('name')?.value, value: credentialGroup.get('value')?.value });
     }
     this.walletItem.secrets = [];

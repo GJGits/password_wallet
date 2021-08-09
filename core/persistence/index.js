@@ -24,7 +24,7 @@ persistence.addItem = (item) => {
         item.id = walletItems.length + 1;
         walletItems.push(item);
     } else {
-        walletItems[index] = item;
+        walletItems[index] = JSON.parse(JSON.stringify(item));
     }
 };
 

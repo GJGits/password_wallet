@@ -22,3 +22,11 @@ To build and transform the whole app into a native application the [electron-pac
 - setNewCredentials: `password: string`. Set the new master key password. Returns an object containing a status field equals to `200` or `500` if some error occurs, in this case also an error field is provided.
 
 - signin: `password: string`. Authenticate user. Returns an object containing a status field equals to `200` or `500`, in this case also an error field is provided.
+
+- wallet_items: `No data`. Returns the list of cached wallet items. Secrets inside these objects are already decrypted so it is very important to pay attention on how these data are exposed.
+
+- wallet_item_by_id: `id: number`. Returns the wallet item with the given id.
+
+- delete_item: `id: number`. Delete the wallet item with the given id. This action is not reversible.
+
+- add_or_update_item: `item: WalletItem`. Add to the wallet or update the already existing item.

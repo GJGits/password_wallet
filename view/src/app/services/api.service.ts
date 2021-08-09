@@ -35,6 +35,6 @@ export class ApiService {
   }
 
   addItem(walletItem: WalletItem) {
-    this.ipcRenderer.invoke('add_item', walletItem);
+    this.ipcRenderer.invoke('add_or_update_item', walletItem);
   }
 }

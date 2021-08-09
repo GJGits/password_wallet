@@ -144,7 +144,7 @@ export class IpcMockService implements IpcRendererService {
       // return of({status: 500, errorMessage: 'Permission denied: check logs for more information'});
     }
 
-    if (channel == 'add_item') {
+    if (channel == 'add_or_update_item') {
       let nextId = 0;
       this.walletItems.forEach((el) => {
         if (el.id > nextId)
