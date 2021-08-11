@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NotLoggedComponent } from './not-logged.component';
+import { WalletItemComponent } from './wallet-item.component';
 
-describe('NotLoggedComponent', () => {
-  let component: NotLoggedComponent;
-  let fixture: ComponentFixture<NotLoggedComponent>;
+describe('WalletItemEditorComponent', () => {
+  let component: WalletItemComponent;
+  let fixture: ComponentFixture<WalletItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NotLoggedComponent ]
+      declarations: [ WalletItemComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NotLoggedComponent);
+    fixture = TestBed.createComponent(WalletItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

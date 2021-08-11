@@ -5,10 +5,10 @@ import { WalletItem } from 'src/app/services/interfaces';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: './wallet.component.html',
+  styleUrls: ['./wallet.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class WalletComponent implements OnInit {
 
   walletItems$: Observable<WalletItem[]> = of([]);
   currentPage = 0;
@@ -22,8 +22,8 @@ export class HomeComponent implements OnInit {
   }
 
   isElementInCurrentPage(itemIndex: number) {
-    let startIndex = HomeComponent.ELEMENT_PER_PAGE * this.currentPage;
-    let endIndex = startIndex + HomeComponent.ELEMENT_PER_PAGE;
+    let startIndex = WalletComponent.ELEMENT_PER_PAGE * this.currentPage;
+    let endIndex = startIndex + WalletComponent.ELEMENT_PER_PAGE;
     return itemIndex >= startIndex && itemIndex < endIndex;
   }
 

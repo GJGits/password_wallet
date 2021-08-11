@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WalletItemEditorComponent } from './wallet-item-editor.component';
+import { UpdateMasterPasswordComponent } from './updateMasterPassword.component';
 
-describe('WalletItemEditorComponent', () => {
-  let component: WalletItemEditorComponent;
-  let fixture: ComponentFixture<WalletItemEditorComponent>;
+describe('RenewComponent', () => {
+  let component: UpdateMasterPasswordComponent;
+  let fixture: ComponentFixture<UpdateMasterPasswordComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WalletItemEditorComponent ]
+      declarations: [ UpdateMasterPasswordComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WalletItemEditorComponent);
+    fixture = TestBed.createComponent(UpdateMasterPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -11,7 +11,7 @@ export class CredentialCardComponent implements OnInit {
 
   @Input() walletItem: WalletItem  = <WalletItem>{};
   passRate = 0;
-  openViewLink = "/itemEditor";
+  openViewLink = "/wallet";
   showDelete = false;
   @Output() onConfirmDelete = new EventEmitter<WalletItem>();
 

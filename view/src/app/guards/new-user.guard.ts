@@ -19,7 +19,7 @@ export class NewUserGuard implements CanActivate {
         this.router.navigate(['newUser']);
       }
       if (data.status === 205) {
-        this.router.navigate(['renew']);
+        this.router.navigate(['update']);
       }
     });
 

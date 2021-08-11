@@ -7,10 +7,10 @@ import { PasswordStrengthCalculatorService } from 'src/app/services/password-str
 
 @Component({
   selector: 'app-wallet-item-editor',
-  templateUrl: './wallet-item-editor.component.html',
-  styleUrls: ['./wallet-item-editor.component.scss']
+  templateUrl: './wallet-item.component.html',
+  styleUrls: ['./wallet-item.component.scss']
 })
-export class WalletItemEditorComponent implements OnInit {
+export class WalletItemComponent implements OnInit {
 
   walletItem: WalletItem = { id: -1, serviceName: '', description: '', credentials: [], secrets: [] };
 

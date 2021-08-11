@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from '../services/api.service';
-import { PasswordStrengthCalculatorService } from '../services/password-strength-calculator.service';
+import { ApiService } from '../../services/api.service';
+import { PasswordStrengthCalculatorService } from '../../services/password-strength-calculator.service';
 
 @Component({
   selector: 'app-renew',
-  templateUrl: './renew.component.html',
-  styleUrls: ['./renew.component.scss']
+  templateUrl: './updateMasterPassword.component.html',
+  styleUrls: ['./updateMasterPassword.component.scss']
 })
-export class RenewComponent implements OnInit {
+export class UpdateMasterPasswordComponent implements OnInit {
 
   infoMessage = "Your master key is outdated, you need to updated in order to proceed";
   newCredentials = { oldPassword: "", password: "", password_confirm: "" };
@@ -35,7 +35,7 @@ export class RenewComponent implements OnInit {
           this.apiService.newCredentials(this.newCredentials.password)?.subscribe((response) => {
             console.log("newCred response:", response);
             if (response.status === 200) {
-              this.router.navigate(["home"]);
+              this.router.navigate(["wallet"]);
             } else {
               this.serverError = response.errorMessage;
             }

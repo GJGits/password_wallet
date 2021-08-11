@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../services/api.service';
-import { PasswordStrengthCalculatorService } from '../services/password-strength-calculator.service';
+import { ApiService } from '../../services/api.service';
+import { PasswordStrengthCalculatorService } from '../../services/password-strength-calculator.service';
 
 @Component({
   selector: 'app-new-user',

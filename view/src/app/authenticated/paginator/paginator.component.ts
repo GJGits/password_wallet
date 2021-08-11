@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { HomeComponent } from '../home/home.component';
+import { WalletComponent } from '../wallet/wallet.component';
 
 @Component({
   selector: 'app-paginator',
@@ -19,12 +19,12 @@ export class PaginatorComponent implements OnInit {
   }
 
   nextPage() {
-    this.currentPage = ((this.currentPage + 1) * HomeComponent.ELEMENT_PER_PAGE) > <number>this.size ? 0 : this.currentPage + 1;
+    this.currentPage = ((this.currentPage + 1) * WalletComponent.ELEMENT_PER_PAGE) > <number>this.size ? 0 : this.currentPage + 1;
     this.pageChanged.emit(this.currentPage);
   }
 
   previousPage() {
-    this.currentPage = (this.currentPage - 1) >= 0 ? (this.currentPage - 1) : Math.floor(<number>this.size / HomeComponent.ELEMENT_PER_PAGE);
+    this.currentPage = (this.currentPage - 1) >= 0 ? (this.currentPage - 1) : Math.floor(<number>this.size / WalletComponent.ELEMENT_PER_PAGE);
     this.pageChanged.emit(this.currentPage);
   }
 
