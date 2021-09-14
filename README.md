@@ -35,7 +35,7 @@ To build and transform the whole app into a native application the [electron-pac
 
 In this project [docker](https://www.docker.com/) is used to set up the environments needed by each module. The docker version used is `Docker version 20.10.7, build f0df350`. For each module will be provided a custom image, at the moment the only avaiable public image is the one for the view submodule. The following are the links to the modules images, on each link you can find the documentation on how to use the relative image.
  
- - view: [view docker image](https://hub.docker.com/repository/docker/gjcode/gjcode-passwallet-view). Once you are into the container issue the command: `ng serve --host 0.0.0.0` to run the developer server, when the app is ready it is possible to open a browser and connect to `http://0.0.0.0:4200`. **This command is needed only if you are not using vscode dev container**. Docker network settings will be adjusted in order to delete differences among different type of configurations.
+ - view: [view docker image](https://hub.docker.com/repository/docker/gjcode/gjcode-passwallet-view).
 
  - core: **not avaible yet**.
 
