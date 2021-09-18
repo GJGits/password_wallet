@@ -16,6 +16,10 @@ export function ipcFactory(): IpcRendererService {
   declarations: [],
   imports: [
     CommonModule
-  ]
+  ],
+  providers: [{
+    provide: IpcRendererService,
+    useFactory: ipcFactory,
+  }]
 })
 export class ServicesModule { }

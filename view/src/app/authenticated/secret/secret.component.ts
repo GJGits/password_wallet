@@ -10,7 +10,7 @@ import { PasswordStrengthCalculatorService } from 'src/app/services/password-str
 export class SecretComponent implements OnInit {
 
   @Input()
-  secret = <Secret>{};
+  secret = <Secret>{name: '', value: '', lastUpdate: 0};
   passRate = 0;
   passValidityImageMap = new Map([
     ["new", "txt-blue"],

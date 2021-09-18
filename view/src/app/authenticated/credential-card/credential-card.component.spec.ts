@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ServicesModule } from 'src/app/services/services.module';
 
 import { CredentialCardComponent } from './credential-card.component';
 
@@ -8,6 +9,7 @@ describe('CredentialCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ServicesModule],
       declarations: [ CredentialCardComponent ]
     })
     .compileComponents();

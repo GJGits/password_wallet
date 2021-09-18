@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { WalletItem } from 'src/app/services/interfaces';
+import { Credential_, WalletItem } from 'src/app/services/interfaces';
 import { PasswordStrengthCalculatorService } from 'src/app/services/password-strength-calculator.service';
 
 @Component({
@@ -9,7 +9,12 @@ import { PasswordStrengthCalculatorService } from 'src/app/services/password-str
 })
 export class CredentialCardComponent implements OnInit {
 
-  @Input() walletItem: WalletItem  = <WalletItem>{};
+  @Input() walletItem: WalletItem = <WalletItem>{
+    id: 0,
+    description: '',
+    credentials: <Credential_[]>[],
+    secrets: [{ name: '', value: '', lastUpdate: 0 }]
+  };
   passRate = 0;
   openViewLink = "/wallet";
   showDelete = false;

@@ -1,13 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ServicesModule } from 'src/app/services/services.module';
 
 import { WalletComponent } from './wallet.component';
 
-describe('HomeComponent', () => {
+describe('WalletComponent', () => {
   let component: WalletComponent;
   let fixture: ComponentFixture<WalletComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ServicesModule],
       declarations: [ WalletComponent ]
     })
     .compileComponents();

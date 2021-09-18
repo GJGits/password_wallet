@@ -1,13 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ServicesModule } from 'src/app/services/services.module';
 
 import { LoginComponent } from './login.component';
 
-describe('NotLoggedComponent', () => {
+describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ServicesModule, RouterTestingModule],
       declarations: [ LoginComponent ]
     })
     .compileComponents();

@@ -1,4 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { IpcRendererService } from 'src/app/services/ipc-renderer-service';
+import { ipcFactory, ServicesModule } from 'src/app/services/services.module';
+import { NotAuthenticatedModule } from '../not-authenticated.module';
 
 import { NewUserComponent } from './new-user.component';
 
@@ -8,6 +14,7 @@ describe('NewUserComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ RouterTestingModule, ServicesModule, NotAuthenticatedModule ],
       declarations: [ NewUserComponent ]
     })
     .compileComponents();

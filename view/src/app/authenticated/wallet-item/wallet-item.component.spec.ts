@@ -1,13 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ServicesModule } from 'src/app/services/services.module';
+import { AuthenticatedModule } from '../authenticated.module';
 
 import { WalletItemComponent } from './wallet-item.component';
 
-describe('WalletItemEditorComponent', () => {
+describe('WalletItemComponent', () => {
   let component: WalletItemComponent;
   let fixture: ComponentFixture<WalletItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ServicesModule, RouterTestingModule, AuthenticatedModule],
       declarations: [ WalletItemComponent ]
     })
     .compileComponents();
