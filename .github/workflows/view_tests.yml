@@ -18,11 +18,14 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16.3.0'
-      - name: Install dev dependencies
+      - name: Install package-json dependencies
         run: npm install
         working-directory: ./view
-      - name: Install global dependencies
-        run: npm install -g @angular/cli && npm install electron
+      - name: Install angular
+        run: npm install -g @angular/cli
+        working-directory: ./view
+      - name: Install electron
+        run: npm install -D electron
         working-directory: ./view
       - name: Run unit tests
         run: ng test
