@@ -25,7 +25,7 @@ jobs:
         run: npm install -g @angular/cli
         working-directory: ./view
       - name: Install electron
-        run: npm install -D electron
+        run: npm install --save-dev electron
         working-directory: ./view
       - name: Run unit tests
         run: ng test
