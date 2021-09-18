@@ -23,6 +23,7 @@ jobs:
         working-directory: ./view
       - name: Install global dependencies
         run: npm install -g @angular/cli && npm install electron
+        working-directory: ./view
       - name: Run unit tests
         run: ng test
         working-directory: ./view
