@@ -1,17 +1,18 @@
 module.exports = dependencies => (event, data) => {
 
-    const persistence = dependencies.persistence;
-    const crypto = dependencies.crypto;
+    const loadMasterKey = dependencies.loadMasterKey;
+    const setPlainTextPassword = dependencies.setPlainTextPassword;
+    const hash = dependencies.hash;
 
-    let masterKey = persistence.loadMasterKey();
+    let masterKey = loadMasterKey();
     let readKey = masterKey.readKey;
-    let hash = crypto.hash(readKey.salt, data);
+    let givenPasswordHash = hash(readKey.salt, data);
 
-    if (hash.content === readKey.key) {
-        persistence.setPlainTextPassword(data);
+    if (givenPasswordHash.content === readKey.key) {
+        setPlainTextPassword(data);
         return { status: 200 }; // request ok
     }
-    
+
     return { status: 500, errorMessage: 'Wrong credentials' }; // wrong credentials
 
 }
