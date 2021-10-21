@@ -13,15 +13,15 @@ export class IpcMockService implements IpcRendererService {
       id: 0,
       serviceName: 'Facebook',
       description: 'Info to access to my facebook account',
-      credentials: [{ name: 'email', value: 'myemail@example.it' }, { name: 'username', value: 'myUsername' }, { name: '2 way auth second device', value: '3331111111' }],
+      credentials: [{  name: 'email', value: 'myemail@example.it' }, {name: 'username', value: 'myUsername' }, {name: '2 way auth second device', value: '3331111111' }],
       secrets: [{ name: 'password', value: 'Abecedario11!!', lastUpdate: 1626945931177 }]
     },
     {
       id: 1,
       serviceName: 'Instagram',
       description: 'Info to access to my instagram account',
-      credentials: [{ name: 'email', value: 'myemail@example.it' }, { name: 'username', value: 'myUsername' }, { name: '2 way auth second device', value: '3331111111' }],
-      secrets: [{ name: 'password', value: 'Abecedario11!!', lastUpdate: 1626945931177 }]
+      credentials: [{name: 'email', value: 'myemail@example.it' }, {name: 'username', value: 'myUsername' }, {name: '2 way auth second device', value: '3331111111' }],
+      secrets: [{name: 'password', value: 'Abecedario11!!', lastUpdate: 1626945931177 }]
     },
     {
       id: 2,
@@ -91,7 +91,7 @@ export class IpcMockService implements IpcRendererService {
       serviceName: 'WalletItem',
       description: 'Info to access to my account',
       credentials: [],
-      secrets: [{ name: 'pin', value: '0000', lastUpdate: 1625345111177 }]
+      secrets: [{  name: 'pin', value: '0000', lastUpdate: 1625345111177 }]
     },
     {
       id: 12,

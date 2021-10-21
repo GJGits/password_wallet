@@ -73,9 +73,53 @@ export class WalletItemComponent implements OnInit {
     this.itemForm.markAsDirty();
   }
 
+  onCredentialNameChanged(credential: any, event: any) {
+    this.updateCredentialName(credential, event);
+    this.makeFormDirty();
+  }
+
+  onCredentialValueChanged(credential: any, event: any) {
+    this.updateCredentialValue(credential, event);
+    this.makeFormDirty();
+  }
+
+  onSecretNameChanged(secret: any, event: any) {
+    this.updateSecretName(secret,event);
+    this.makeFormDirty();
+  }
+
+  onSecretValueChanged(secret: any, event: any) {
+    this.updateSecretValue(secret,event);
+    this.makeFormDirty();
+  }
+
+  updateSecretName(secret: any, event: any) {
+    secret.get('name').setValue(event.target.value);
+  }
+
+  updateSecretValue(secret: any, event: any) {
+    secret.get('value').setValue(event.target.value);
+  }
+
+  updateCredentialName(credential: any, event: any) {
+    credential.get('name').setValue(event.target.value);
+  }
+
+  updateCredentialValue(credential: any, event: any) {
+    credential.get('value').setValue(event.target.value);
+  }
+
   addCredential() {
     if (this.newCredentialGroup.get('name')?.value && this.newCredentialGroup.get('value')?.value) {
+      let nextId = 0;
+      for (const control of this.credentials.controls) {
+        if (+control.get('id')?.value > nextId) {
+          nextId = +control.get('id')?.value;
+        }
+        nextId++;
+      }
       this.credentials.push(this.fb.group({
+        id: [nextId],
         name: [this.newCredentialGroup.get('name')?.value],
         value: [this.newCredentialGroup.get('value')?.value]
       }));
@@ -117,8 +161,7 @@ export class WalletItemComponent implements OnInit {
     this.walletItem.description = this.itemForm.get('description')?.value;
     this.walletItem.credentials = [];
     for (let credentialGroup of this.credentials.controls) {
-      console.log("new credential: ", credentialGroup.get('value')?.value);
-      this.walletItem.credentials.push({ name: credentialGroup.get('name')?.value, value: credentialGroup.get('value')?.value });
+      this.walletItem.credentials.push({name: credentialGroup.get('name')?.value, value: credentialGroup.get('value')?.value });
     }
     this.walletItem.secrets = [];
     for (let secretGroup of this.secrets.controls) {
@@ -129,7 +172,7 @@ export class WalletItemComponent implements OnInit {
           this.walletItem.secrets[index].lastUpdate = new Date().getTime();
         }
       } else {
-        this.walletItem.secrets.push({ name: secretGroup.get('name')?.value, value: secretGroup.get('value')?.value, lastUpdate: new Date().getTime() });
+        this.walletItem.secrets.push({name: secretGroup.get('name')?.value, value: secretGroup.get('value')?.value, lastUpdate: new Date().getTime() });
       }
     }
     this.apiService.addItem(this.walletItem);

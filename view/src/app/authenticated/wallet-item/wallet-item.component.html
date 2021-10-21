@@ -12,9 +12,9 @@
     <div formArrayName="credentials">
         <h3>Credentials</h3>
         <div *ngFor="let credential of credentials.controls">
-            <input type="text" [value]="credential.get('name')?.value" (keyup)="makeFormDirty()">
+            <input type="text" [value]="credential.get('name')?.value" (keyup)="onCredentialNameChanged(credential, $event)">
             <span>:</span>
-            <input type="text" [value]="credential.get('value')?.value" (keyup)="makeFormDirty()">
+            <input type="text" [value]="credential.get('value')?.value" (keyup)="onCredentialValueChanged(credential, $event)">
         </div>
         <div [formGroup]="newCredentialGroup">
             <input type="text" placeholder="Credential name" formControlName="name">
@@ -28,9 +28,9 @@
     <div formArrayName="secrets">
         <h3>Secrets</h3>
         <div class="secret-item" *ngFor="let secret of secrets.controls">
-            <input type="text" [value]="secret.get('name')?.value" (keyup)="makeFormDirty()">
+            <input type="text" [value]="secret.get('name')?.value" (keyup)="onSecretNameChanged(secret, $event)">
             <span>:</span>
-            <input type="text" [value]="secret.get('value')?.value" (keyup)="makeFormDirty()">
+            <input type="text" [value]="secret.get('value')?.value" (keyup)="onSecretValueChanged(secret, $event)">
         </div>
         <div [formGroup]="newSecretGroup">
             <input type="text" placeholder="Secret name" formControlName="name">
