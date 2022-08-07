@@ -1,8 +1,11 @@
 <div class="container">
-    <div id="block-logo-item">
-      <img src="https://img.icons8.com/fluent/96/000000/lock-2.png" />
-    </div>
-      <input id="unblock-password-item" type="password" name="" (keyup.enter)="signin()" [(ngModel)]="password" placeholder="Enter master password">
-      <b id="passwordError" *ngIf="serverError">{{serverError}}</b>
-    <p id="icons-copyright">All icons provided by <a href="https://icons8.it/" id="icons-link">Icons8</a></p>
+  <div id="block-logo-item">
+    <img src="https://img.icons8.com/fluent/96/000000/lock-2.png" />
   </div>
+  <div [formGroup]="signinForm" (keyup.enter)="signin()" id="loginForm">
+    <input formControlName="password" id="unblock-password-item" type="password" name=""
+      placeholder="Enter master password">
+    <b id="passwordError" *ngIf="serverError">{{serverError}}</b>
+  </div>
+  <p id="icons-copyright">All icons provided by <a href="https://icons8.it/" id="icons-link">Icons8</a></p>
+</div>

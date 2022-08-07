@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { ApiService } from '../../services/api.service';
 import { PasswordStrengthCalculatorService } from '../../services/password-strength-calculator.service';
 
@@ -11,35 +12,34 @@ import { PasswordStrengthCalculatorService } from '../../services/password-stren
 })
 export class NewUserComponent implements OnInit {
 
-  newCredentials = { password: '', password_confirm: '' };
+  newCredentialsForm = this.formBuilder.group({
+    password: ['', Validators.required],
+    passwordConfirm: ['', Validators.required],
+  });
+  
   passwordRate = 0;
-  serverError = "";
+  serverError: string | null = "";
   infoMessage = "Set your master password. Store this password in a safe place, if you lose this password you won't be able to recover the other ones in the wallet";
 
-  constructor(private apiService: ApiService, private router: Router, private activeRoute: ActivatedRoute, private passwordStrengthCalculator: PasswordStrengthCalculatorService) { }
+  constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private passwordStrengthCalculator: PasswordStrengthCalculatorService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((paramMap) => {
+      if (paramMap && paramMap.has('errorMessage'))
+        this.serverError = paramMap.get('errorMessage');
+    })
   }
 
   updatePasswordStrength() {
-    this.passwordRate = this.passwordStrengthCalculator.computePasswordStrengthRate(this.newCredentials.password);
+    this.passwordRate = this.passwordStrengthCalculator.computePasswordStrengthRate(this.newCredentialsForm.value.password);
   }
 
-  onSubmit(f: NgForm) {
-    if (f.form.valid) {
-      this.apiService.newCredentials(this.newCredentials.password)?.subscribe((response) => {
-        // on success: {status: 200}
-        // on error: {status: 500, errorMessage: '....'}
-        if (response.status === 200) {
-          this.router.navigate(['home']);
-        } else {
-          this.serverError = response.errorMessage;
-        }
-
-      });
-
+  onSubmit() {
+    if (this.newCredentialsForm.valid) {
+      this.authService.login(this.newCredentialsForm.value.password);
     }
 
   }
+
 
 }

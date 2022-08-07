@@ -3,14 +3,13 @@
         <img src="https://img.icons8.com/fluent/96/000000/lock-2.png" />
     </div>
     <p id="infoMessage" *ngIf="infoMessage">{{infoMessage}}</p>
-    <form id="unblock-password-item" name="newCredentialsForm" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <form id="unblock-password-item" name="newCredentialsForm" [formGroup]="newCredentialsForm">
         <input type="password" class="form-control" id="password" name="signUpPassword" placeholder="Enter master password"
-            required [(ngModel)]="newCredentials.password" #password="ngModel"
+            formControlName="password"
             (keyup)="updatePasswordStrength()">
         <input type="password" class="form-control" id="rip-password" name="signUpRepeatPassword"
-            placeholder="Repeat master password" required [(ngModel)]="newCredentials.password_confirm"
-            #repeatPasswod="ngModel" [pattern]="newCredentials.password">
-        <div *ngIf="repeatPasswod.touched && repeatPasswod.invalid" id="repeat-error">
+            placeholder="Repeat master password" formControlName="passwordConfirm">
+        <div *ngIf="newCredentialsForm.get('passwordConfirm')?.touched && newCredentialsForm.get('passwordConfirm')?.invalid" id="repeat-error">
             Passwords don't match
         </div>
         <button type="submit">Update master password</button>

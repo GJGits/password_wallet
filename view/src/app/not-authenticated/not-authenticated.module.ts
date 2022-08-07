@@ -5,6 +5,7 @@ import { UpdateMasterPasswordComponent } from './updateMasterPassword/updateMast
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewUserComponent } from './new-user/new-user.component';
 import { NotAuthenticatedRoutingModule } from './not-authenticated-routing.module';
+import { ServicesModule } from '../services/services.module';
 
 
 
@@ -18,7 +19,8 @@ import { NotAuthenticatedRoutingModule } from './not-authenticated-routing.modul
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NotAuthenticatedRoutingModule
+    NotAuthenticatedRoutingModule,
+    ServicesModule
   ]
 })
 export class NotAuthenticatedModule { }

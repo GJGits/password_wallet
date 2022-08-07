@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, NgForm, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { ApiService } from '../../services/api.service';
 import { PasswordStrengthCalculatorService } from '../../services/password-strength-calculator.service';
 
@@ -12,40 +13,30 @@ import { PasswordStrengthCalculatorService } from '../../services/password-stren
 export class UpdateMasterPasswordComponent implements OnInit {
 
   infoMessage = "Your master key is outdated, you need to updated in order to proceed";
-  newCredentials = { oldPassword: "", password: "", password_confirm: "" };
+  newCredentialsForm = this.formBuilder.group({
+    oldPassword: ['', Validators.required],
+    password: ['', Validators.required],
+    passwordConfirm: ['', Validators.required],
+  });
   passwordRate = 0;
-  serverError = "";
+  serverError: string | null = "";
 
-  constructor(private apiService: ApiService, private router: Router, private passwordStrengthCalculator: PasswordStrengthCalculatorService) { }
+  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private apiService: ApiService, private router: Router, private passwordStrengthCalculator: PasswordStrengthCalculatorService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((paramMap) => {
+      if (paramMap && paramMap.has('errorMessage'))
+        this.serverError = paramMap.get('errorMessage');
+    })
   }
 
   updatePasswordStrength() {
-    this.passwordRate = this.passwordStrengthCalculator.computePasswordStrengthRate(this.newCredentials.password);
+    this.passwordRate = this.passwordStrengthCalculator.computePasswordStrengthRate(this.newCredentialsForm.value.password);
   }
 
-  onSubmit(f: NgForm) {
-    if (f.form.valid) {
-      this.apiService.signin(this.newCredentials.oldPassword)?.subscribe((response) => {
-        // on success: {status: 200}
-        // on error: {status: 500, errorMessage: '....'}
-        console.log("signin response:", response);
-        if (response.status === 200) {
-          this.apiService.newCredentials(this.newCredentials.password)?.subscribe((response) => {
-            console.log("newCred response:", response);
-            if (response.status === 200) {
-              this.router.navigate(["wallet"]);
-            } else {
-              this.serverError = response.errorMessage;
-            }
-          })
-        } else {
-          this.serverError = response.errorMessage;
-        }
-
-      });
-
+  updateMasterPassword() {
+    if (this.newCredentialsForm.valid) {
+      this.authService.updateMasterKey(this.newCredentialsForm.value.oldPassword, this.newCredentialsForm.value.password);
     }
   }
 

@@ -30,7 +30,7 @@ export class IpcProdService implements IpcRendererService {
     throw new Error('Method not implemented.');
   }
 
-  invoke(channel: string, data?: any): Observable<any>  {
+  invoke(channel: string, ...data: any): Observable<any>  {
     return from(this.ipcRenderer?.invoke(channel, data));
   }
 }

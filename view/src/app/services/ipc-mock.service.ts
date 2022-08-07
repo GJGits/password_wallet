@@ -123,7 +123,7 @@ export class IpcMockService implements IpcRendererService {
         return of({ status: 500, errorMessage: 'Wrong credentials' }); // wrong credentials
     }
     if (channel == 'accountExistsAndIsValid') {
-      return of({status: 205}); // outdated
+      return of({status: 200}); // ok
     }
     if (channel == 'wallet_items') {
       return of(this.walletItems);
