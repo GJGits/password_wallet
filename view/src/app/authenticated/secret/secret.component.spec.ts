@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ServicesModule } from 'src/app/services/services.module';
+import { AuthenticatedModule } from '../authenticated.module';
 
 import { SecretComponent } from './secret.component';
 
@@ -9,7 +11,7 @@ describe('SecretComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ServicesModule],
+      imports: [ServicesModule, AuthenticatedModule, RouterTestingModule],
       declarations: [ SecretComponent ]
     })
     .compileComponents();

@@ -16,3 +16,8 @@ export interface WalletItem {
     credentials: Credential_[];
     secrets: Secret[];
 }
+
+export interface ServerResponse {
+    status: number;
+    errorMessage?: string;
+}

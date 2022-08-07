@@ -14,8 +14,8 @@ export class ApiService {
     return this.ipcRenderer.invoke('signin', password);
   }
 
-  newCredentials(password: string): Observable<any> | undefined {
-    return this.ipcRenderer.invoke('setNewCredentials', password);
+  newCredentials(oldPassword: string, newPassword: string): Observable<any> | undefined {
+    return this.ipcRenderer.invoke('setNewCredentials', oldPassword, newPassword);
   }
 
   isNewAccount(): Observable<any> {

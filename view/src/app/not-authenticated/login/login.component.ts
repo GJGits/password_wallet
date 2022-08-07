@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ApiService } from '../../services/api.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-not-logged',
   templateUrl: './login.component.html',
@@ -8,24 +9,26 @@ import { ApiService } from '../../services/api.service';
 })
 export class LoginComponent implements OnInit {
 
+  signinForm = this.formBuilder.group({
+    password: ['', Validators.required]
+  })
+
+  serverError: string | null = '';
+
+
+  constructor(private router: ActivatedRoute, private authService: AuthService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.router.paramMap.subscribe((paramMap) => {
+      if (paramMap && paramMap.has('errorMessage'))
+        this.serverError = paramMap.get('errorMessage');
+    })
   }
 
-  password: string = '';
-  serverError: string = '';
-
-  constructor(private apiService: ApiService, private router: Router) { }
-
   signin() {
-    this.apiService.signin(this.password)?.subscribe((data) => {
-      if (data && data.status === 200) {
-        this.router.navigate(['/wallet']);
-      }
-      if (data && data.status === 500) {
-        this.serverError = data.errorMessage;
-      }
-    });
+    if (this.signinForm.valid) {
+      this.authService.login(this.signinForm.value.password);
+    }
   }
 
 }

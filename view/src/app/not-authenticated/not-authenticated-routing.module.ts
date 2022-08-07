@@ -8,8 +8,11 @@ import { NewUserGuard } from '../guards/new-user.guard';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [NewUserGuard] },
+  {path: 'login/:errorMessage', component: LoginComponent, canActivate: [NewUserGuard] },
   { path: 'newUser', component: NewUserComponent },
   { path: 'update', component: UpdateMasterPasswordComponent },
+  { path: 'update/:errorMessage', component: UpdateMasterPasswordComponent },
+
 ];
 
 @NgModule({

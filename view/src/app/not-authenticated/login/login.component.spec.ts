@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ServicesModule } from 'src/app/services/services.module';
+import { NotAuthenticatedModule } from '../not-authenticated.module';
 
 import { LoginComponent } from './login.component';
 
@@ -10,7 +10,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ServicesModule, RouterTestingModule],
+      imports: [RouterTestingModule, NotAuthenticatedModule],
       declarations: [ LoginComponent ]
     })
     .compileComponents();
@@ -25,4 +25,19 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('form group elements count', () => {
+    const formElement = fixture.debugElement.nativeElement.querySelector('#loginForm');
+    const inputElements = formElement.querySelectorAll('input');
+    expect(inputElements.length).toEqual(1);
+  });
+
+  it('check initial form values', () => {
+    const loginFormGroup = component.signinForm;
+    const loginFormValues = {password: ''};
+    expect(loginFormGroup.value).toEqual(loginFormValues);
+  });
+
+  
+
 });
