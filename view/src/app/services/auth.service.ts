@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 import { ApiService } from './api.service';
 import { ServerResponse } from './interfaces';
 
@@ -17,7 +17,7 @@ enum AUTH_STATUS {
 })
 export class AuthService {
 
-  authStatus = new Subject<ServerResponse>();
+  authStatus = new ReplaySubject<ServerResponse>();
   static AUTH_STATUS = AUTH_STATUS;
 
   constructor(private apiService: ApiService, private router: Router) { }
