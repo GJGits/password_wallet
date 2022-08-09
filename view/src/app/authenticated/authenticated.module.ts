@@ -9,6 +9,7 @@ import { WalletItemComponent } from './wallet-item/wallet-item.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { DummiesModule } from '../dummies/dummies.module';
 
 
 
@@ -26,7 +27,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
     RouterModule,
     AuthenticatedRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    DummiesModule
   ]
 })
 export class AuthenticatedModule { }
