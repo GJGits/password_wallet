@@ -44,9 +44,9 @@ export class PasswordStrengthCalculatorService {
     return "old";  
   }
 
-  suggestPassword(): string {
+  suggestPassword(secretLength: number): string {
     let password = '';
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < secretLength; i++) {
       let c = Math.floor(Math.random() * (125 - 35 + 1) + 35);
       password += String.fromCharCode(c);
     }
