@@ -34,14 +34,17 @@
         </div>
     </div>
 
-    <button (click)="suggestOne()">Suggest one</button>
+    <!--<button (click)="suggestOne()">Suggest one</button>-->
     
     <div class="secret-suggestion">
+        <!--
         <label for="pass-opt">password</label>
         <input type="radio" id="pass-opt" name="secret-type-select" (change)="suggestPassword()" checked>
         <label for="pin-opt">pin</label>
         <input type="radio" id="pin-opt" name="secret-type-select" (change)="suggestPin()">
         <input type="number" name="" id="" min="1" max="8" [formControl]="pinLength">
+        -->
+        <app-password-generator (passwordGenerated)="onPasswordGenerated($event)"></app-password-generator>
         {{suggested_secret}}
     </div>
     

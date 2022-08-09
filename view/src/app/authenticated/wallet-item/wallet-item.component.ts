@@ -32,10 +32,8 @@ export class WalletItemComponent implements OnInit {
   });
 
   suggested_secret = '';
-  secret_type = 'password';
-  pinLength = this.fb.control(4);
 
-  constructor(private apiService: ApiService, private router: Router, private activeRoute: ActivatedRoute, private passwordStrengthCalculator: PasswordStrengthCalculatorService, private fb: FormBuilder) { }
+  constructor(private apiService: ApiService,  private activeRoute: ActivatedRoute, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(params => {
@@ -108,20 +106,10 @@ export class WalletItemComponent implements OnInit {
     }
   }
 
-  suggestOne() {
-    if (this.secret_type === 'password')
-      this.suggested_secret = this.passwordStrengthCalculator.suggestPassword();
-    else
-      this.suggested_secret = this.passwordStrengthCalculator.suggestPin(this.pinLength.value);
+  onPasswordGenerated(password: string) {
+    this.suggested_secret = password
   }
 
-  suggestPassword() {
-    this.secret_type = 'password';
-  }
-
-  suggestPin() {
-    this.secret_type = 'pin';
-  }
 
   updateWallet() {
     this.walletItem.serviceName = this.itemForm.get('serviceName')?.value;
