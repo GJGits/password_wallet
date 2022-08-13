@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReplaySubject, Subject } from 'rxjs';
+import { ReplaySubject, Subject, Subscription } from 'rxjs';
+import { WithSubscription } from '../authenticated/interfaces';
+import { AutoUnsub } from '../decorators/auto-unsub';
 import { ApiService } from './api.service';
 import { ServerResponse } from './interfaces';
 
@@ -15,29 +17,34 @@ enum AUTH_STATUS {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+
+@AutoUnsub()
+export class AuthService extends WithSubscription {
 
   authStatus = new ReplaySubject<ServerResponse>();
   static AUTH_STATUS = AUTH_STATUS;
 
-  constructor(private apiService: ApiService, private router: Router) { }
+  constructor(
+    private apiService: ApiService, 
+    private router: Router
+    ) { super(); }
 
   isNewAccount() {
-    this.apiService.isNewAccount().subscribe((serverResponse) => {
+    this.subscriptions$.push(this.apiService.isNewAccount().subscribe((serverResponse) => {
       this.setStatusAndRedirect(serverResponse, "login");
-    });
+    }));
   }
 
   login(password: string) {
-    this.apiService.signin(password)?.subscribe((serverResponse) => {
+    this.subscriptions$.push(this.apiService.signin(password)?.subscribe((serverResponse) => {
       this.setStatusAndRedirect(serverResponse, "wallet");
-    });
+    })!);
   }
 
   updateMasterKey(oldPassword: string, newPassword: string) {
-    this.apiService.newCredentials(oldPassword, newPassword)?.subscribe((serverResponse) => {
+    this.subscriptions$.push(this.apiService.newCredentials(oldPassword, newPassword)?.subscribe((serverResponse) => {
       this.setStatusAndRedirect(serverResponse, "wallet");
-    });
+    })!);
   }
 
   private setStatusAndRedirect(serverResponse: any, nextLocation: string) {

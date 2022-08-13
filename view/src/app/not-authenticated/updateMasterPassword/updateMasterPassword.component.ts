@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { WithSubscription } from 'src/app/authenticated/interfaces';
+import { AutoUnsub } from 'src/app/decorators/auto-unsub';
 import { AuthService } from 'src/app/services/auth.service';
 import { ApiService } from '../../services/api.service';
 import { PasswordStrengthCalculatorService } from '../../services/password-strength-calculator.service';
@@ -10,7 +13,9 @@ import { PasswordStrengthCalculatorService } from '../../services/password-stren
   templateUrl: './updateMasterPassword.component.html',
   styleUrls: ['./updateMasterPassword.component.scss']
 })
-export class UpdateMasterPasswordComponent implements OnInit {
+
+@AutoUnsub()
+export class UpdateMasterPasswordComponent extends WithSubscription implements OnInit {
 
   infoMessage = "Your master key is outdated, you need to updated in order to proceed";
   newCredentialsForm = this.formBuilder.group({
@@ -20,14 +25,23 @@ export class UpdateMasterPasswordComponent implements OnInit {
   });
   passwordRate = 0;
   serverError: string | null = "";
+  error$: Subscription = new Subscription();
 
-  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private apiService: ApiService, private router: Router, private passwordStrengthCalculator: PasswordStrengthCalculatorService, private authService: AuthService) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private activatedRoute: ActivatedRoute, 
+    private apiService: ApiService, 
+    private router: Router, 
+    private passwordStrengthCalculator: PasswordStrengthCalculatorService, 
+    private authService: AuthService) { 
+      super();
+    }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((paramMap) => {
+    this.subscriptions$.push(this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (paramMap && paramMap.has('errorMessage'))
         this.serverError = paramMap.get('errorMessage');
-    })
+    }));
   }
 
   updatePasswordStrength() {

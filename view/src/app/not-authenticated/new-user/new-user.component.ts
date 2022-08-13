@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { WithSubscription } from 'src/app/authenticated/interfaces';
+import { AutoUnsub } from 'src/app/decorators/auto-unsub';
 import { AuthService } from 'src/app/services/auth.service';
 import { ApiService } from '../../services/api.service';
 import { PasswordStrengthCalculatorService } from '../../services/password-strength-calculator.service';
@@ -10,7 +13,9 @@ import { PasswordStrengthCalculatorService } from '../../services/password-stren
   templateUrl: './new-user.component.html',
   styleUrls: ['./new-user.component.scss']
 })
-export class NewUserComponent implements OnInit {
+
+@AutoUnsub()
+export class NewUserComponent extends WithSubscription implements OnInit {
 
   newCredentialsForm = this.formBuilder.group({
     password: ['', Validators.required],
@@ -21,13 +26,20 @@ export class NewUserComponent implements OnInit {
   serverError: string | null = "";
   infoMessage = "Set your master password. Store this password in a safe place, if you lose this password you won't be able to recover the other ones in the wallet";
 
-  constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private passwordStrengthCalculator: PasswordStrengthCalculatorService, private formBuilder: FormBuilder) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router, 
+    private activatedRoute: ActivatedRoute, 
+    private passwordStrengthCalculator: PasswordStrengthCalculatorService, 
+    private formBuilder: FormBuilder) { 
+      super();
+    }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((paramMap) => {
+    this.subscriptions$.push(this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (paramMap && paramMap.has('errorMessage'))
         this.serverError = paramMap.get('errorMessage');
-    })
+    }));
   }
 
   updatePasswordStrength() {
