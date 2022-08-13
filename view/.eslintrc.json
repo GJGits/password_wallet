@@ -11,10 +11,7 @@
       "parserOptions": {
         "project": [
           "tsconfig.json"
-        ],
-        "tsconfigRootDir": "/workspaces/password_wallet/view/",
-        "sourceType": "module",
-        "createDefaultProgram": true
+        ]
       },
       "extends": [
         "plugin:@angular-eslint/recommended",
