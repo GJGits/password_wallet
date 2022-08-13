@@ -1,16 +1,20 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { concat, iif, Subscription } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { AutoUnsub } from 'src/app/decorators/auto-unsub';
 import { ApiService } from 'src/app/services/api.service';
-import { Credential_, Secret, WalletItem } from 'src/app/services/interfaces';
-import { PasswordStrengthCalculatorService } from 'src/app/services/password-strength-calculator.service';
+import { WalletItem } from 'src/app/services/interfaces';
+import { WithSubscription } from '../interfaces';
 
 @Component({
   selector: 'app-wallet-item-editor',
   templateUrl: './wallet-item.component.html',
   styleUrls: ['./wallet-item.component.scss']
 })
-export class WalletItemComponent implements OnInit {
+
+export class WalletItemComponent extends WithSubscription implements OnInit {
 
   walletItem: WalletItem = { id: -1, serviceName: '', description: '', credentials: [], secrets: [] };
 
@@ -25,7 +29,7 @@ export class WalletItemComponent implements OnInit {
       name: [''],
       value: ['']
     }),
-    newSecretGroup : this.fb.group({
+    newSecretGroup: this.fb.group({
       name: [''],
       value: ['']
     })
@@ -33,27 +37,30 @@ export class WalletItemComponent implements OnInit {
 
   suggested_secret = '';
 
-  constructor(private apiService: ApiService,  private activeRoute: ActivatedRoute, private fb: FormBuilder) { }
+  constructor(
+    private apiService: ApiService,
+    private activeRoute: ActivatedRoute,
+    private fb: FormBuilder,
+  ) { super()}
 
   ngOnInit(): void {
-    this.activeRoute.params.subscribe(params => {
-      if (params['id']) {
-        this.apiService.getWalletItemsById(+params['id']).subscribe(item => {
-          if (item) {
-            this.walletItem = item
-            this.itemForm.controls['serviceName'].setValue(item.serviceName);
-            this.itemForm.controls['description'].setValue(item.description);
-            for (let credential of item.credentials) {
-              this.credentials.push(this.fb.group({ name: [credential.name], value: [credential.value] }));
-            }
-            for (let secret of item.secrets) {
-              this.secrets.push(this.fb.group({ name: [secret.name], value: [secret.value] }));
-            }
-          }
 
-        });
+    this.subscriptions$?.push(this.activeRoute.params.pipe(mergeMap((params) => {
+      return this.apiService.getWalletItemsById(+params['id']);
+    })).subscribe(item => {
+      if (item) {
+        this.walletItem = item
+        this.itemForm.controls['serviceName'].setValue(item.serviceName);
+        this.itemForm.controls['description'].setValue(item.description);
+        for (let credential of item.credentials) {
+          this.credentials.push(this.fb.group({ name: [credential.name], value: [credential.value] }));
+        }
+        for (let secret of item.secrets) {
+          this.secrets.push(this.fb.group({ name: [secret.name], value: [secret.value] }));
+        }
       }
-    });
+
+    }));
   }
 
   get credentials() {

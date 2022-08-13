@@ -1,5 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { WithSubscription } from 'src/app/authenticated/interfaces';
+import { AutoUnsub } from 'src/app/decorators/auto-unsub';
 import { PasswordStrengthCalculatorService } from 'src/app/services/password-strength-calculator.service';
 
 @Component({
@@ -7,7 +10,9 @@ import { PasswordStrengthCalculatorService } from 'src/app/services/password-str
   templateUrl: './password-generator.component.html',
   styleUrls: ['./password-generator.component.scss']
 })
-export class PasswordGeneratorComponent implements OnInit {
+
+@AutoUnsub()
+export class PasswordGeneratorComponent extends WithSubscription implements OnInit {
 
   @Output() passwordGenerated = new EventEmitter<string>();
 
@@ -16,17 +21,21 @@ export class PasswordGeneratorComponent implements OnInit {
     secretLength: FormControl 
   });
 
-  constructor(private passwordStrengthCalculator: PasswordStrengthCalculatorService, private fb: FormBuilder) { }
+
+  constructor(
+    private passwordStrengthCalculator: PasswordStrengthCalculatorService, 
+    private fb: FormBuilder
+    ) { super() }
 
   ngOnInit(): void {
     
-    this.f.get("secretType")?.valueChanges.subscribe((secretType) => {
+    this.subscriptions$.push(this.f.get("secretType")?.valueChanges.subscribe((secretType) => {
       this.emitNewSecret(secretType, this.f.get("secretLength")?.value);
-    });
+    })!);
 
-    this.f.get("secretLength")?.valueChanges.subscribe((secretLength) => {
+    this.subscriptions$.push(this.f.get("secretLength")?.valueChanges.subscribe((secretLength) => {
       this.emitNewSecret(this.f.get("secretType")?.value, secretLength);
-    })
+    })!);
   }
 
   emitNewSecret(secretType: string, secretLength: number) {

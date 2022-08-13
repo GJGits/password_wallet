@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { WithSubscription } from 'src/app/authenticated/interfaces';
+import { AutoUnsub } from 'src/app/decorators/auto-unsub';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-not-logged',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+
+@AutoUnsub()
+export class LoginComponent extends WithSubscription implements OnInit {
 
   signinForm = this.formBuilder.group({
     password: ['', Validators.required]
@@ -15,14 +20,19 @@ export class LoginComponent implements OnInit {
 
   serverError: string | null = '';
 
-
-  constructor(private router: ActivatedRoute, private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(
+    private router: ActivatedRoute, 
+    private authService: AuthService, 
+    private formBuilder: FormBuilder
+    ) { 
+      super();
+  }
 
   ngOnInit(): void {
-    this.router.paramMap.subscribe((paramMap) => {
+    this.subscriptions$.push(this.router.paramMap.subscribe((paramMap) => {
       if (paramMap && paramMap.has('errorMessage'))
         this.serverError = paramMap.get('errorMessage');
-    })
+    }));
   }
 
   signin() {

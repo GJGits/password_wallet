@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AutoUnsub } from '../decorators/auto-unsub';
 import { ApiService } from '../services/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
+@AutoUnsub()
 export class NewUserGuard implements CanActivate {
+
+  newUser$: Subscription = new Subscription();
 
   constructor(private apiService: ApiService, private router: Router) { }
 
@@ -14,16 +20,16 @@ export class NewUserGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    this.apiService.isNewAccount().subscribe((data) => {
+    return this.apiService.isNewAccount().pipe(map((data) => {
       if (data.status === 400) {
-        this.router.navigate(['newUser']);
+        return this.router.createUrlTree(['newUser']);
       }
       if (data.status === 205) {
-        this.router.navigate(['update']);
+        return this.router.createUrlTree(['update']);
       }
-    });
+      return true;
+    }));
 
-    return true;
   }
 
 }
