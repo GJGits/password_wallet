@@ -30,4 +30,10 @@ jobs:
       - name: Run unit tests
         run: ng test
         working-directory: ./view
+      - name: Install eslint
+        run: ng add @angular-eslint/schematics
+        working-directory: ./view
+      - name: run linting
+        run: ng lint --rulesdir src/rules
+        working-directory: ./view
       

@@ -8,7 +8,7 @@ import { WalletItem } from 'src/app/services/interfaces';
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.scss']
 })
-export class WalletComponent implements OnInit {
+export class WalletComponent {
 
   walletItems$: Observable<WalletItem[]> = of([]);
   currentPage = 0;
@@ -16,9 +16,6 @@ export class WalletComponent implements OnInit {
 
   constructor(private apiService: ApiService) {
     this.walletItems$ = this.apiService.getWalletItems();
-  }
-
-  ngOnInit(): void {
   }
 
   isElementInCurrentPage(itemIndex: number) {

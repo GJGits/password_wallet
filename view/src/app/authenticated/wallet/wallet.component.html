@@ -1,6 +1,6 @@
 <div id="card-container">
     <div class="card-item" *ngFor="let walletItem of (walletItems$ | async); index as i">
-        <app-credential-card (onConfirmDelete)="deleteItem($event)" *ngIf="isElementInCurrentPage(i)" [walletItem]="walletItem">
+        <app-credential-card (confirmDelete)="deleteItem($event)" *ngIf="isElementInCurrentPage(i)" [walletItem]="walletItem">
         </app-credential-card>
     </div>
 

@@ -6,7 +6,7 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './form-key-value.component.html',
   styleUrls: ['./form-key-value.component.scss']
 })
-export class FormKeyValueComponent implements OnInit {
+export class FormKeyValueComponent {
 
   @Input() item: FormGroup;
 
@@ -15,9 +15,6 @@ export class FormKeyValueComponent implements OnInit {
       name: [''],
       value: ['']
     });
-  }
-
-  ngOnInit(): void {
   }
 
 }
