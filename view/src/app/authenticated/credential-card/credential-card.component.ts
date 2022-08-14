@@ -18,7 +18,7 @@ export class CredentialCardComponent implements OnInit {
   passRate = 0;
   openViewLink = "/wallet";
   showDelete = false;
-  @Output() onConfirmDelete = new EventEmitter<WalletItem>();
+  @Output() confirmDelete = new EventEmitter<WalletItem>();
 
   constructor(private passwordRateService: PasswordStrengthCalculatorService) { }
 
@@ -35,8 +35,8 @@ export class CredentialCardComponent implements OnInit {
     this.showDelete = false;
   }
 
-  confirmDelete() {
-    this.onConfirmDelete.emit(this.walletItem);
+  onConfirmDelete() {
+    this.confirmDelete.emit(this.walletItem);
   }
 
 }

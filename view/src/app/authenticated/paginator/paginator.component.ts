@@ -6,7 +6,7 @@ import { WalletComponent } from '../wallet/wallet.component';
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.scss']
 })
-export class PaginatorComponent implements OnInit {
+export class PaginatorComponent {
 
   currentPage = 0;
   @Input() size:number | undefined = 0;
@@ -14,9 +14,6 @@ export class PaginatorComponent implements OnInit {
   
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   nextPage() {
     this.currentPage = ((this.currentPage + 1) * WalletComponent.ELEMENT_PER_PAGE) > <number>this.size ? 0 : this.currentPage + 1;
