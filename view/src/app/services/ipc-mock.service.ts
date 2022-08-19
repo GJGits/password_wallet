@@ -1,3 +1,5 @@
+/* eslint-disable max-lines-per-function */
+
 import { Injectable } from '@angular/core';
 import { IpcRendererService } from './ipc-renderer-service';
 import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';

@@ -41,7 +41,7 @@ export class WalletItemComponent extends WithSubscription implements OnInit {
     private apiService: ApiService,
     private activeRoute: ActivatedRoute,
     private fb: FormBuilder,
-  ) { super()}
+  ) { super() }
 
   ngOnInit(): void {
 
@@ -97,6 +97,7 @@ export class WalletItemComponent extends WithSubscription implements OnInit {
         name: [newName],
         value: [newValue]
       }));
+      this.walletItem.credentials.push({ name: newName, value: newValue });
       this.newCredentialGroup.reset();
     }
   }
@@ -109,6 +110,15 @@ export class WalletItemComponent extends WithSubscription implements OnInit {
         name: [newName],
         value: [newValue]
       }));
+      let index = this.walletItem.secrets.findIndex(el => el.name === newName);
+      if (index != -1) {
+        if (this.walletItem.secrets[index].value !== newValue) {
+          this.walletItem.secrets[index].value = newValue
+          this.walletItem.secrets[index].lastUpdate = new Date().getTime();
+        }
+      } else {
+        this.walletItem.secrets.push({ name: newName, value: newValue, lastUpdate: new Date().getTime() });
+      }
       this.newSecretGroup.reset();
     }
   }
@@ -121,22 +131,6 @@ export class WalletItemComponent extends WithSubscription implements OnInit {
   updateWallet() {
     this.walletItem.serviceName = this.itemForm.get('serviceName')?.value;
     this.walletItem.description = this.itemForm.get('description')?.value;
-    this.walletItem.credentials = [];
-    for (let credentialGroup of this.credentials.controls) {
-      this.walletItem.credentials.push({ name: credentialGroup.get('name')?.value, value: credentialGroup.get('value')?.value });
-    }
-    this.walletItem.secrets = [];
-    for (let secretGroup of this.secrets.controls) {
-      let index = this.walletItem.secrets.findIndex(el => el.name === secretGroup.get('name')?.value);
-      if (index != -1) {
-        if (this.walletItem.secrets[index].value !== secretGroup.get('value')?.value) {
-          this.walletItem.secrets[index].value = secretGroup.get('value')?.value
-          this.walletItem.secrets[index].lastUpdate = new Date().getTime();
-        }
-      } else {
-        this.walletItem.secrets.push({ name: secretGroup.get('name')?.value, value: secretGroup.get('value')?.value, lastUpdate: new Date().getTime() });
-      }
-    }
     this.apiService.addItem(this.walletItem);
     this.itemForm.markAsPristine();
   }
