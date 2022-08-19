@@ -3,7 +3,6 @@ module.exports = {
   ignorePatterns: [
     "projects/**/*"
   ],
-  plugins: ['@mews'],
   overrides: [
     {
       files: [
