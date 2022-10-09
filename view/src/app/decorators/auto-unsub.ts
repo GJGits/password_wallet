@@ -10,7 +10,7 @@ import { Subscription } from "rxjs";
  */
 export function AutoUnsub() {
     return function (constructor: any) {
-        const orig = constructor.prototype.ngOnDestroy
+        const orig = (constructor.prototype.ngOnDestroy && constructor.prototype.ngOnDestroy.name === 'ngOnDestroy') ?  constructor.prototype.ngOnDestroy : undefined;
         constructor.prototype.ngOnDestroy = function () {
             const subscriptions = this["subscriptions$"];
             if (subscriptions) {
