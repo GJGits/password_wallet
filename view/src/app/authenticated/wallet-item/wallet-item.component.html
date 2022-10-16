@@ -11,39 +11,20 @@
 
     <div formArrayName="credentials">
         <h3>Credentials</h3>
-        <div *ngFor="let credential of credentials.controls; let i = index">
-            <!-- method required for cast restriction-->
-           <app-form-key-value [item]="getCredentialsFormGroupAt(i)"></app-form-key-value> 
-        </div>
-        
-        <div>
-            <app-form-key-value [item]="newCredentialGroup"></app-form-key-value> 
-            <button (click)="addCredential()">add</button>
+        <div *ngFor="let credential of credentials.controls; let last = last">
+           <app-form-key-value (addClicked)="addCredential()" [showAdd]="last" [item]="credential"></app-form-key-value> 
         </div>
     </div>
     <hr>
 
     <div formArrayName="secrets">
         <h3>Secrets</h3>
-        <div class="secret-item" *ngFor="let secret of secrets.controls; let i = index">
-            <app-form-key-value [item]="getSecretFormGroupAt(i)"></app-form-key-value> 
-        </div>
-        <div >
-            <app-form-key-value [item]="newSecretGroup"></app-form-key-value> 
-            <button (click)="addSecret()">add</button>
+        <div class="secret-item" *ngFor="let secret of secrets.controls; let last = last">
+            <app-form-key-value (addClicked)="addSecret()" [showAdd]="last" [item]="secret"></app-form-key-value> 
         </div>
     </div>
 
-    <!--<button (click)="suggestOne()">Suggest one</button>-->
-    
     <div class="secret-suggestion">
-        <!--
-        <label for="pass-opt">password</label>
-        <input type="radio" id="pass-opt" name="secret-type-select" (change)="suggestPassword()" checked>
-        <label for="pin-opt">pin</label>
-        <input type="radio" id="pin-opt" name="secret-type-select" (change)="suggestPin()">
-        <input type="number" name="" id="" min="1" max="8" [formControl]="pinLength">
-        -->
         <app-password-generator (passwordGenerated)="onPasswordGenerated($event)"></app-password-generator>
         {{suggested_secret}}
     </div>

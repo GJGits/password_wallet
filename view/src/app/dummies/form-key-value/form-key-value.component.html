@@ -2,4 +2,5 @@
     <input type="text" formControlName="name">
     <span>:</span>
     <input type="text" formControlName="value">
+    <button [disabled]="!isGroupDirty()" (click)="onAddClicked()" *ngIf="showAdd">Add</button>
 </div>
