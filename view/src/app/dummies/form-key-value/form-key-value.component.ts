@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder, } from '@angular/forms';
 
 @Component({
   selector: 'app-form-key-value',
@@ -8,13 +8,23 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class FormKeyValueComponent {
 
-  @Input() item: FormGroup;
+  @Input() item: any;
+  @Input() showAdd = false;
+  @Output() addClicked = new EventEmitter<boolean>();
 
   constructor(private fb: FormBuilder) { 
     this.item = this.fb.group({
       name: [''],
       value: ['']
     });
+  }
+
+  isGroupDirty() {
+    return this.item.get('name')?.value && this.item.get('value')?.value;
+  }
+
+  onAddClicked() {
+    this.addClicked.emit(true);
   }
 
 }
