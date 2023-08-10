@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { WithSubscription } from 'src/app/authenticated/interfaces';
 import { AutoUnsub } from 'src/app/decorators/auto-unsub';
 import { AuthService } from 'src/app/services/auth.service';
+import { passwordMatchValidator } from 'src/app/validators/password-match.validator';
 import { ApiService } from '../../services/api.service';
 import { PasswordStrengthCalculatorService } from '../../services/password-strength-calculator.service';
 
@@ -20,7 +21,7 @@ export class NewUserComponent extends WithSubscription implements OnInit {
   newCredentialsForm = this.formBuilder.group({
     password: ['', Validators.required],
     passwordConfirm: ['', Validators.required],
-  });
+  }, {validators: passwordMatchValidator});
   
   passwordRate = 0;
   serverError: string | null = "";

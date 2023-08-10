@@ -8,5 +8,5 @@
 
 <div id="button-bar">
     <app-paginator (pageChanged)="pageChanged($event)" id="paginator" [size]="(walletItems$ | async)?.length"></app-paginator>
-    <button id="plus" routerLink="/itemEditor/-1">+</button>
+    <button id="plus" routerLink="/wallet/-1">+</button>
 </div>

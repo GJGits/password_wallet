@@ -7,7 +7,7 @@ import { WalletGuard } from '../guards/wallet.guard';
 
 const routes: Routes = [
   {path: 'wallet', component: WalletComponent, canActivate: [WalletGuard]},
-  { path: 'wallet/:id', component: WalletItemComponent }
+  {path: 'wallet/:id', component: WalletItemComponent }
 ];
 
 @NgModule({
